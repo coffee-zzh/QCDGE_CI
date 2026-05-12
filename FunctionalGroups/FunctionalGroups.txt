@@ -1,0 +1,185 @@
+// Copyright (C) 2003 Rational Discovery LLC
+//  This file is part of the RDKit.
+//  The contents are covered by the terms of the BSD license
+//  which is included in the file license.txt, found at the root
+//  of the RDKit source tree.
+// NOTES:
+//  - larger functional groups should come before smaller ones involving
+//    the same core atom
+//  - the first atom in the SMARTS query is not part of the group itself
+//  - it is essential that the fields in this file be separated by tabs
+//    (not spaces).
+//
+//   Label	SMARTS	Notes
+//--------------------------------------------------
+//Ring
+
+1RingC(=O)O	   [*;R:1][C;R](=O)[O;R][*;R:1]	   self_lactone79
+2RingC(=O)N(R)	   [*;R:1][C;R](=O)[N;R;!$(N[O,F,N]);!$(N=*)][*;R:1]	   self_lactam84
+3AromaticRing-C(=O)	   [a;!$(c1cc1);!$(c1ccc1);!$(c1cccc1);!$(c1ccccc1);!$(c1cccccc1);!$(c1ccccccc1)]=[#8;!$(N[O,N,F])]	   self_oxohetarene106
+4AromaticRingWithN-C(=N)	   [a:1][N;!$(N[O,F,N])]C(=[N;!$(N[O,F,N])])[a:1]	   self_iminohetarene108
+
+//--------------------------------------------------
+
+5-NC(=O)NN	   [N;!$(N=*);!$(N(C=O)(C=O));!$(N[O,F,N]);!a]C(=O)-[N;!$(N(C=O)(C=O));!$(N[O,F]);!$(NNN);!a][N;!$(N[O,F]);!$(NNN);!$(N=*);!a]	   self_semicarbazide138
+6C=NNC(=O)N	   [C;!$(*=C=NN);!$(C[O,N,F]);!a]=[N;!$(C(=O)NN)]-[N;!$(C(=O)NC=O);!$(*=NN[N,O,F]);!a]-C(=O)-[N;!!$(N(C(=O))C=O);!$(N(CNN=*)[O,F,N]);!a]	   self_semicarbazone11
+
+7NCC(=O)OH	   *-[N;H1,H2;!$(N[N,O,F]);!a]-[C;H1,H2;!a;!$(C[O,F]);!$(C(N)N)]-C(=O)[O;H1]	   self_alpha-aminoacid203
+8C(OH)C(=O)OH	   *-[C;!$(C[N,F]);!$(C(O)O)]([O;H1])-C(=O)[O;H1]	   self_alpha-hydroxyacid204
+
+9-C(OR)(OR)NR	   [C;!$(CC=O);!$(CF);!$(C(O)(O)(N)[O,N]);!a]([O;!a;H0;!$(O[O,N,F])])([O;!a;H0;!$(O[O,N,F])])[N;!$(N=*);!$(N[N,O,F]);!a]	   self_carboxylic acid amide acetal111
+10-C(OR)(OR)OR	   [C;!$(CC=O);!$(C[N,F]);!$(C(O)(O)(O)O)]([O;!a;H0;!$(O[O,N,F])])([O;!a;H0;!$(O[O,N,F])])[O;!a;H0;!$(O[O,N,F])]	   self_carboxylic acid orthoester110
+11-C(XR)(XR)XR	   [C;!$(CC=O);!$(C([O,N])([O,N])([O,N])[O,N]);!$(CF);!a]([#7,#8;!$(CN=*)])([#7,#8;!$(CN=*)])[#7,#8;!$(CN=*)]	   self_orthocarboxylic acid deriv109
+
+12C(=O)NRC(=O)	   [C;!$(C(=O)C(=O));!$(C(N)(=O)[N,O,F])](=O)[N;H0;!a][C;!$(C(=O)C(=O));!$(C(N)(=O)[N,O,F])](=O)	   self_carboxylic acid subst. imide115
+13C(=O)NHC(=O)	   [C;!$(C(=O)C(=O));!$(C(N)(=O)[N,O,F])](=O)[N;H1][C;!$(C(=O)C(=O));!$(C(N)(=O)[N,O,F])](=O)	   self_carboxylic acid unsubst. imide114
+14C(=O)OC(=O)	   [C;!$(C(=O)C(=O));!$(C(N)(=O)[N,O,F])](=O)-O-[C;!$(C(=O)C(=O));!$(C(N)(=O)[N,O,F])](=O)	   self_carboxylic acid anhydride112
+
+15ROC(=O)OR	   [O;H0;!$(C(=O)OC(=O));!$(O[O,N,F])]-[#6](=O)-[O;H0;!$(C(=O)OC(=O));!$(O[O,N,F])]	   self_carbonic acid diester119
+16HOC(=O)OH	   [O;H1]-[#6](=O)-[O;H0;!$(C(=O)OC(=O));!$(O[O,N,F])]	   self_carbonic acid monoester118
+
+167C(OH)-C(OH)	   *[C;!$(C=*);!$(CC=*);!$(C(O)([O,N,F])C(O));!a]([O;H1])-[C;!$(C=*);!$(CC=*);!$(C(O)([O,N,F])C(O));!a]([O;H1])	   self_1,2 diol32
+18C(OH)=C(OH)	   [C;!$(C=CC=*);!$(C=C(O)[O,F,N]);!a]([O;H1])=[C;!$(C=CC=*);!$(C=C(O)[O,F,N])]([O;H1])	   self_enediol36
+19C(OH)-C(NH2)	   *[C;!$(C=*);!$(C(O)(C=O)C);!$(C(O)[O,N,F]);!a]([O;H1])-[C;!$(C=*);!$(C(N)(C=O)C);!$(C(N)[O,N,F]);!a][N;H2]	   self_1,2 aminoalcohol33
+
+
+20-NC(=O)OH	   *-[N;!$(N(C(=O))(C(=O)));!$(N[O,N,F]);!$(N=*);!a]C(=O)[O;H1]	self_carbamic acid126
+21-NC(=O)OR	   *-[N;!$(N(C(=O))(C(=O)));!$(N[O,N,F]);!$(N=*);!a]C(=O)[O;H0;!$(O(C(=O))(C(=O)));!$(O[O,N,F])]	self_carbamic acid ester (urethane)127
+
+22-NC(=N)N	   *[N;!$(N=*);!$(NC=O);!$(N[O,N,F]);!a]C(=N)[N;!$(N=*);!$(NC=O)]([#6;!a])	self_guanidine137
+23-NC(=O)N	   *-[N;!a;!$(N=*);!$(N(C=O)(C=O));!$(N[O,F,N])]C(=O)[N;!$(N=*);!$(N(C=O)(C=O));!$(N[O,F,N]);!a]	self_urea133
+24-NC(OR)=NR	   *-[N;!a;!$(N=*);!$(N(C=O));!$(N[O,F,N])]C([O;!$(OC=O);!$(O[O,N,F])])=[N;!$(N(C=O));!a;!$(N[O,F,N])]	self_isourea134
+
+25-C(=N)NN	   [C;!$(CC(=O));!a;!$(C[O,F]);!$(C(N)N)](=[N;!a;!$(NC(=O));!$(N[N,O,F])])[N;!a;!$(NC(=O));!$(N[O,F]);!$(NNN)][N;!$(N=*);!a;!$(NC(=O));!$(N[O,F]);!$(NNN)]	   self_carboxylic acid amidrazone89
+26-C(=O)NN	   [C;!$(C(=O)C(=O));!$(C[O,F]);!$(C(N)N)](=O)[N;!$(N(C=O)C=O);!a;!$(N[O,F]);!$(NNN)][N;H0;!$(N=*);!$(NC(=O));!$(N[O,F]);!$(NNN);!a]	   self_carboxylic acid hydrazide85
+27-C(=O)NHOH	   [C;!$(C(=O)C(=O));!$(C[O,F]);!$(CNN)](=O)[N;H1][O;H1]	   self_hydroxamic acid87
+
+28-C(=N)N	   [C;!$(CC(=O));!$(C[O,F]);!$(C(N)N)](=[N;!a;!$(NC=O);!$(N[O,F,N])])[N;!$(N=*);!$(NC=O);!a;!$(N[O,F,N])]	   self_carboxylic acid amidine88
+
+29-C(=O)NH2	   [C;!$(C(=O)C(=O));!$(C[O,F]);!$(CNN)](=O)[N;H2]	   self_carboxylic acid prim amide81
+30-C(=O)N(R)H	   [C;!$(C(=O)C(=O));!$(C[O,F]);!$(CNN)](=O)[N;H1;!$(N(C(=O))C(=O));!a;!$(N[O,N,F])]	   self_carboxylic acid sec amide82
+31-C(=O)N(R)R	  [C;!$(C(=O)C(=O));!$(C[O,F]);!$(CNN)](=O)[N;!$(N=*);!$(N(C(=O))C(=O));!a;!$(N[O,N,F])]	   self_carboxylic acid tert amide83
+
+32-NC(=O)CH3	[N;!a;!$(N(C=O)C=O);!$(N=*);!$(N[O,N,F])]-C(=O)-[C;H3]	methyl amide
+33RC(=O)OH	*-C(=O)[O;D1]	carboxylic acids
+34-C(=O)OMe	*-C(=O)[O;D2]-[C;D1;H3]	carbonyl methyl ester
+35-C(=O)H	*-[C;D2;H1](=O)	self_terminal aldehyde
+36-C(=O)CH3	*-C(=O)-[C;D1;H3]	carbonyl methyl
+37-C(=O)N	   [C](=O)-[N;H0;!a]		amide???
+
+38-N=C=N	   [N;!$(NC=O);!a;!$(N[O,N,F])]=C=[N;!$(NC=O);!a;!$(N[O,N,F])]		self_carbodiimide148
+39-N=C=O	   [N;!$(NC=O);!$(N[O,N,F])]=C=O		self_isocyanate145
+40-C=C=O	   [C;!$(C([O,N,F]));!a;!$(CC=O);!$(C(=O)=*)]=C=O	self_ketene15
+41-C=C(X)X	   *[C;!$(C=C=*);!$(C(C=O)=C);!$(C[N,O,F]);!a]=C([O,N,F,Cl,Br,I;!a])[O,N,F,Cl,Br,I;!a]	self_ketene acetal derivative16
+
+42-C(OR)OR	   *[C;!$(C=*);!$(C(C=O));!$(C(O)(O)[N,O,F]);!a]([O;H0;!$(O[N,O,F]);!$(OC=O)])[O;H0;!$(O[N,O,F]);!$(OC=O)]	self_acetal19
+43-C(OH)OR	   *[C;!$(C=*);!$(C(C=O));!$(C(O)(O)[N,O,F]);!a]([O;H1])[O;H0;!$(O[N,O,F]);!a;!$(OC=O)]	self_hemiacetal18
+44-C(OH)OH	   *[C;!$(C=*);!$(C(C=O));!$(C(O)(O)[N,O,F]);!a]([O;H1])[O;H1]	self_carbonyl hydrate17
+
+45-C(O)N	   *[C;!$(C=*);!$(CC(=O));!$(C(O)(N)[O,N,F]);!a]([O;!a;!$([O;!$(OC=*)][O,N,F])])[N;R0;!$(N=*);!$(NC(=O));!$(N[N,O,F]);!a]	self_hemiaminal20
+46-C(N)N	   *[C;!$(C=*);!$(CC(=O));!$(C(N)(N)[O,N,F]);!a]([N;R0;!$(N=*);!$(NC(=O));!$(N[N,O,F]);!a])[N;R0;!$(N=*);!$(NC(=O));!$(N[N,O,F]);!a]	self_aminal21
+
+47=C(R)N	   [C;!$(C(=C)=*);!$(C[N,O,F]);!a]=[C;!$(C([O,F]));!$(C(N)N);!a]([N;R0;!$(N=*);!$(N[N,O,F]);!a])	self_enamine24
+48=C(R)OH	   [C;!$(C(=C)=*);!$(C[N,O,F]);!a]=[C;!$(C[N,F]);!$(C(O)O);!a][O;H1]	self_enol25
+49C=C(R)OR	   [C;!$(C(=C)=*);!$(C[N,O,F]);!a]=[C;!$(C[N,F]);!$(C(O)O);!a][O;!a;H0;!$(O[O,F,N])]	self_enolether26
+
+50ROOR	   [O;!a;!$(OC=O);!$(O[N,F]);!$(OOO)]-[O;!a;!$(OC=O);!$(O[N,F]);!$(OOO)]	self_peroxide43
+51ROOH	   [O;!a;!$(OC=O);!$(O[N,F]);!$(OOO)][O;!a;H1]	self_hydroperoxide
+
+
+//--------------------------------------------------
+// Nitrogen containing
+52N(R)(R)N(R)(R)	   [N;!$(N=*);!a;!$(N[O,F]);!$(NNN)][N;!$(N=*);!a;!$(N[O,F]);!$(NNN)]	self_hydrazine derivative45
+53N(R)(R)O(R)	   [N;!$(N=*);!a;!$(NC=O);!$(N[N,F]);!$(N(O)O)]-[O;!a;!$(OC=O)]	self_hydroxylamine46
+
+54RC(=N)O	   [C;!$(CC=O);!a;!$(C[N,F]);!$(C(O)O)](=[N;!a;!$(NC=O);!$(N[N,O,F])])[O;!$(OC=O);!$(O[N,O,F])]	self_imido ester97
+55RC(=N)F	   [C;!$(CC=O);!a;!$(C[N,O]);!$(C(F)F)](=[N;!a;!$(NC=O);!$(N[N,O,F])])F	self_imidoyl halide98
+
+56-ON=O	   [O;!$(O[N,O,F]);!$(OC=O)][N;R0]=[O;D1]	self_nitrite151
+57-ON(=O)O	   [O;!$(O[H,O,F]);!$(O(N)N);!$(OC=O)][N;D3](=O)[O;!$(O[H,O,F]);!$(O(N)N);!$(OC=O)]	self_nitrate152???
+
+58-N=O	   [N;R0;!$(N[H,O,N,F]);!$(NC=O)]=O	self_nitroso149
+59-NO2	   *-[N;D3](=[O;D1])[O;D1]	nitro
+
+
+60=N-O*	   [C;!$(C(=N)=*);!$(CC=O);!$(C[N,O,F]);!a]=N-[O;H0;!$(OC=O);!$(O[O,F]);!$(O(N)N)]	self_oxime ether14
+61=N-O	   *=[N;R0]-[O;D1]	oximes
+
+62=N-N	   [C;!$(C(=N)=*);!$(CC=O);!a;!$(C[N,O,F])]=N-[N;R0;!$(N=*);!$(NC=O);!$(NC(=O));!a;!$(N[O,F]);!$(N(N)N)]	self_hydrazone10
+63-N=NR	   [N;D2;!$(NC=O);!a;!$(N[H,N,O,F])]=[N;D2;!$(NC=O);!a;!$(N[H,N,O,F])]	self_azo compound141
+64-N=NH	   [N;D2;!$(NC=O);!a;!$(N[H,N,O,F])]=[N;H1]	self_hydrazines
+65-N#N	   *-[N;D2]#[N;D1]		diazo_error_error
+
+66=NCH3	   *=[N;R0]-[C;D1;H3]	Imines
+67-N=CH2	   *-[N;R0]=[C;D1;H2]	Imines
+
+68-C(=O)C#N	   *-[C;!$(C(=O)C(=O));!$(C[N,O,F])](=O)[C;D2]#[N;D1]		self_acyl cyanide96
+69-OC#N	   [O;!$(OC=O);!a;!$(O[H,N,O,F])]-[C;D2]#[N;D1]		self_cyanate144
+
+70-C#N	   *-[C;D2]#[N;D1]		cyano
+71-N=NCH3	   *-[N;D2]=[N;D2]-[C;D1;H3]	terminal
+
+72R-NH2	   *[#6;!a][N;H2;!$(NC=O)]	self_prim aliphat amine49
+73aromatic-NH2	   [N;H2;!$(NC=O)]([#6,#8;a])	self_prim aromat amine
+
+74R2NH	   [N;H1;!$(N=*);!$(NC=O);!a]([#6;!a])[#6;!a]	self_sec aliphat amine54
+75-NHmixed	   [N;H1;!$(NC=O)]([#6;!a])[#6,#8;a]	self_sec mixed amine53
+76-NHaromatic	   [N;H1;!$(NC=O)]([#6,#8;a])[#6,#8;a]	self_sec arom_amine52
+
+77-NR3	   [N;!$(NC=O)]([#6;!a])([#6;!a])[#6;!a]	self_tert aliphat amine56
+78-N3mixed	   [N;!$(NC=O)]([#6;!a])([#6;!a])[#6,#8;a]	self_tert mixed amine???
+79-N3aromatic	    N([#6,#8;a])([#6,#8;a])[#6,#8;a]	self_tert arom_amine
+
+
+//--------------------------------------------------
+//Miscellaneous fragments:
+
+80RC(=O)OR	   [C;!$(C(C=O)=O);!$(C[N,F]);!$(C(O)O)](=O)[O;!a;!$(O(C=O)C=O);!$(O[H,O,N,F])]	self_carboxylic acid ester78
+81-NC(=O)F	   *-[N;!$(N=*);!$(N(C(=O))(C(=O)));!a;!$(N[N,O,F])]C(=O)F	self_carbamic acid halide128
+
+82RC(=O)X	[C;!$(CC=O);!a;!$(C([O,N,F])([O,N,F]))](=O)[O,N,F;!a]	self_carboxylic acid deriv75
+
+83CO2like	   [C;!$(CC);!$(C=C);!$(C#C)]	   self_CO2 deriv(general)116
+84XC(=O)X	   [N,O,F,Cl]-[#6](=O)-[N,O,F,Cl]	   self_carbonic acid deriv
+
+85ROC(=O)X	   [O;!a;H0;!$(OC=O);!$(C[H,N,O,F])][#6](=O)[F,Cl]	   self_carbonic acid ester halide120
+
+86a-F		[*;a]-F	   self_aryl fluoride
+87R-F		*-F	   self_acyl fluoride
+
+
+88-tBu	*-[C;D4]([C;D1])([C;D1])-[C;D1]	t-butyl
+89-CF3		*-[C;D4](F)(F)F		trifluoromethyl
+
+90-cPropyl	*-[C;D3]1-[C;D2]-[C;D2]1	cyclopropyl
+
+//--------------------------------------------------
+//Really teeny stuff:
+91-OMe	*-[O;D2]-[C;D1;H3]	methoxy
+92aOa	[*;a]-[O;D2;!$(OC(=O))]-[*;a]	self_diarylether
+93aOR	[*;a]-[O;D2;!$(OC(=O))]-[#6;!a;!$(C=O)]	self_alkylarylether
+94ROR	[#6;!$(a);!$(C=O)]-[O;!$(OC(=O))]-[#6;!$(a);!$(C=O)]	self_dialkylether
+
+95RORandHOH	*[O;D2;!$(OC(=O))]([#6&#1])([#6&#1])	self_ether_error
+96-OEt	*-[O;D2]-[C;D2]-[C;D1;H3]	ethoxy
+
+97RC(R)(R)OH	*[C;H0;!$(C=*);!$(CC=O);!a]-[O;H1]	self_tert.hydroxyls
+98RC(R)OH	*[C;!a;H1;!$(CC=O);!$(C=*)][O;H1]	self_sec.hydroxyls
+99RCOH	[C;H2;!$(CC=O)][O;H1]	self_prim.hydroxyls
+
+100a-2OH	[*;a]([O;H1])[*;a]([O;H1])	self_1,2diphenol
+101a-OH	[*;a][O;H1]	self_phenol
+
+102R-OH	[C;!$(C=*)][O;D1]	 self_hydroxy compound
+103all-OH	*[O;H1]	self_hydroxyls
+
+104-C#CH	*-[C;D2]#[C;D1;H]	acetylenes
+105-C#C	*-C#C	self_alkyne
+106-C=C	*-C=C	self_alkene
+
+107C=O	*-C=O	self_side-chain ketones
+108(=O)	*=O	side-chain aldehydes or ketones
+
+109=N	   *=N			???
+110#N	   *#N			nitriles
+111allNH2	   *[N;H2]			self_nh2
