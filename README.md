@@ -18,5 +18,6 @@ pip install scipy
 pip install tqdm
 pip install numpy
 pip install pandas
+pip install seaborn
 
 ```
