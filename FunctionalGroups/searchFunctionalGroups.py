@@ -1,22 +1,23 @@
 import os
+import sys
 from rdkit import Chem
 from rdkit.Chem import Draw
 from rdkit.Chem import RDConfig
 from rdkit.Chem import FragmentCatalog
 
+
 def main_searchGroupsImport(smiles):
-    # 获取当前脚本文件的绝对路径
+
     script_path = os.path.abspath(__file__)
-    # 获取脚本所在目录的路径
+    
     script_dir = os.path.dirname(script_path)
-    # 构建a.dat文件的绝对路径
+    
     fg_file = os.path.join(script_dir, 'FunctionalGroups_for_plot.txt')
 
     fparams, fcat = getFuncGroupFromFragment(smiles,fg_file)
     groups=[]
     if fcat.GetNumEntries() != 0:
         for i in range(fcat.GetNumEntries()):
-            # 向存储器传入分子片段id，获取片段中所包含的官能团编号：fcat.GetEntryFuncGroupIds()
             groups+=list(fcat.GetEntryFuncGroupIds(i))
         groups = set(groups)
         funcnames=[]
@@ -26,36 +27,34 @@ def main_searchGroupsImport(smiles):
         return groups
     else:
         return None
-        # try:
-        #     funcnames=process_unsaturated_other_atoms(smiles,fg_file)
-        #     return funcnames
-        # except:
-        #     return None
+
 
 def fragments(mol,fg_file):
     fparams = FragmentCatalog.FragCatParams(0, 10, fg_file)
-    # 传入参数器，创建一个片段存储器,产生的分子片段都会存储在该对象中
     fcat = FragmentCatalog.FragCatalog(fparams)
-    # 创建一个片段生成器
     fcgen = FragmentCatalog.FragCatGenerator()
-    # 计算分子片段
-    fcgen.AddFragsFromMol(mol, fcat)
-    #通过存储器查看片段：fcat.GetEntryDescription() 尖括号中的内容：表示与片段相连的官能团
-    # print(fcat.GetEntryDescription(11))
+    try:
+        fcgen.AddFragsFromMol(mol, fcat)
+    except Exception as e:
+        print(f"Warning: AddFragsFromMol Fragmentation failed; treat as an empty result: {e}", file=sys.stderr)
     return fparams, fcat
 
 def getFuncGroupFromFragment(smiles,fg_file):
     mol = Chem.MolFromSmiles(smiles)
+    if mol is None:
+        print(f"Warning: MolFromSmiles Parsing failed; treat as an empty result.: {smiles}", file=sys.stderr)
+        fparams = FragmentCatalog.FragCatParams(0, 10, fg_file)
+        fcat = FragmentCatalog.FragCatalog(fparams)
+        return fparams, fcat
     num_atoms = mol.GetNumAtoms()
     fparams, fcat = fragments(mol,fg_file)
-    # 查看分子片段数量fcat.GetNumEntries()
     if num_atoms <3 or fcat.GetNumEntries()==0:
         index_C = find_unsaturated_carbons(smiles)
         if index_C !=999:
             smiles=smiles[:index_C+1]+'CCCC'+smiles[index_C+1:]
             mol = Chem.MolFromSmiles(smiles)
             fparams, fcat = fragments(mol,fg_file)
-            saveImage(mol,'aaaaa')
+
     return fparams, fcat
 
 def find_unsaturated_carbons(smiles):
@@ -113,7 +112,6 @@ def process_unsaturated_other_atoms(smiles,fg_file):
         groups=[]
         if fcat.GetNumEntries() != 0:
             for j in range(fcat.GetNumEntries()):
-                # 向存储器传入分子片段id，获取片段中所包含的官能团编号：fcat.GetEntryFuncGroupIds()
                 groups+=list(fcat.GetEntryFuncGroupIds(j))
             groups = set(groups)
             funcnames=[]
@@ -153,43 +151,6 @@ def TEST_searchGroupsImport(nu,smiles):
     except:
         return None
 
-
-def searchGroupsTest1():
-    # smiles='O=CC#N'
-    # smiles='O=N(=O)OC1=CN=NO1'
-    # smiles='n1cncncnc1'
-    # smiles='CC(O)CO'
-    # smiles='CCCCC=CC(=O)C'
-    #smiles='NC(=O)C(N)=O'
-    #smiles='OCCNC1=NC=NO1'
-    #smiles = '[NH]C1=C(O)[CH]NC(F)=C1'
-    smiles = '[CHCCCC]1C=C(C(=C=O)C=[C]1)O'
-    mol = Chem.MolFromSmiles(smiles)
-    
-    # saveImage(mol,'1.png')
-    fg_file = 'FunctionalGroups.txt'
-    num_atoms = mol.GetNumAtoms()
-    fparams, fcat = getFuncGroupFromFragment(smiles,fg_file)
-    groups=[]
-    for i in range(fcat.GetNumEntries()):
-        # 向存储器传入分子片段id，获取片段中所包含的官能团编号：fcat.GetEntryFuncGroupIds()
-        groups+=list(fcat.GetEntryFuncGroupIds(i))
-    for i in set(groups):
-        # 向参数器传入官能团编号，获取官能团对应的mol对象：fparams.GetFuncGroup()
-        funcgroup = fparams.GetFuncGroup(i)
-        name = funcgroup.GetProp('_Name')
-        print(name+ '    '+Chem.MolToSmarts(funcgroup))
-    # 根据id获取片段：fcat.GetEntryDescription()
-    # 获取上级片段id：fcat.GetEntryDownIds()
-
 if __name__ == '__main__':
-    # searchGroupsTest1()
     main_searchGroupsImport('CCCCC=CC(=O)C')
-    # smiles='NCCOC(C)=O'
-    # # for i in ['NC(N)=O', 'N#CC#N', 'NC(=N)C#N', 'FC(F)(F)F', 'NC(=O)C(N)=O', 'O=C(C#N)C#N', 'N#CC#CC#N']:
-    # a=main_searchGroupsImport(smiles)
-    # print(a)
-
-
-#[C;!$(C=*);!$(CC=O);!a;!$(C[N,O,F])]=N-[N;R0;!$(N=*);!$(NC=O);!$(NC(=O));!a;!$(N[O,F]);!$(NNN)]          
- 
+    

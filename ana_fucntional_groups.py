@@ -34,21 +34,17 @@ def analyzeFGs_main(input_file):
         pickle.dump(all_dict, file)
 
 
-def draw_img_of_top(ana_fungroup):
+def export_top_fun(ana_fungroup):
     with open(f'{ana_fungroup}/FunctionalGroups_count_rdkit.pkl', 'rb') as file:
         df = pickle.load(file)
     fg_file=f'{main_path}/FunctionalGroups_for_plot.txt'
     fparams = FragmentCatalog.FragCatParams(1,6,fg_file)
-    mols=[]
     top=25
     sorted_dict = sorted(df['count_id'].items(), key=lambda x: x[1], reverse=True)[:top]
     for key, value in sorted_dict:
         funcgroup = fparams.GetFuncGroup(key)
         name=f"{funcgroup.GetProp('_Name')}_{key}"
         print(f"{name}: {value}")
-        mols.append(funcgroup)
-    img=Draw.MolsToGridImage(mols,molsPerRow=6)
-    img.save(f'{ana_fungroup}/fgs_of_top_{top}.png')
     print(sorted(df['count_id'].keys()))
     print(len(df['count_id']))
     print(df['list'])
@@ -91,7 +87,7 @@ if __name__ == '__main__':
     import time
     start_time = time.time()
     analyzeFGs_main(smi_file)
-    # draw_img_of_top(ana_fungroup)
+    export_top_fun(ana_fungroup)
     checkmol_main(smi_file)
     checkmol_top(ana_fungroup)
     end_time = time.time()
