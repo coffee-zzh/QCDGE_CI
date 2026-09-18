@@ -92,8 +92,8 @@ if __name__ == '__main__':
     start_time = time.time()
     analyzeFGs_main(smi_file)
     # draw_img_of_top(ana_fungroup)
-    # checkmol_main(smi_file)
-    # checkmol_top(ana_fungroup)
+    checkmol_main(smi_file)
+    checkmol_top(ana_fungroup)
     end_time = time.time()
     print(f"Total time: {end_time - start_time} seconds")
     
